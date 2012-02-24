@@ -1,0 +1,6 @@
+.lein-deps-sum
+\#*
+.\#*
+clclient/classes/*
+clclient/lib/*
+server/node_modules/*
