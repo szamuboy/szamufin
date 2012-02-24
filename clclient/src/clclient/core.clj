@@ -1,6 +1,6 @@
 (ns clclient.core
   (:require [seesaw.core :as seesaw])
-  (:require seesaw.dev)
+  (:require [seesaw.mig :as mig])
   (:require [clojure.data.json :as json])
   (:require [clj-http.client :as client])
   (:gen-class))
@@ -40,14 +40,16 @@
         server-status-label (seesaw/label :text "UNKNOWN")
         check-server-button (seesaw/button :text "Check")
         frame (seesaw/frame :title "ClClient"
-                            :content (seesaw/vertical-panel
-                                      :items ["First line"
-                                              (seesaw/horizontal-panel
-                                               :items ["Configured server:"
-                                                       server-address-text
-                                                       "Status:"
-                                                       server-status-label
-                                                       check-server-button])]))]
+                            :content (mig/mig-panel
+                                      :items
+                                      [[(seesaw/label "Configured server") ""]
+                                       [server-address-text ""]
+                                       ["Status:" ""]
+                                       [server-status-label ""]
+                                       [check-server-button ""]])
+
+                            ;(seesaw/vertical-panel :items ["First line" (seesaw/horizontal-panel :items ["Configured server:" server-address-text "Status:" server-status-label check-server-button])])
+                            )]
     (seesaw/listen check-server-button
                    :action (fn [e]
                              (seesaw/config! server-status-label :text "Checking")
